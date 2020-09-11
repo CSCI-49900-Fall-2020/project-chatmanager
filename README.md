@@ -6,7 +6,7 @@
 **Date:** September 8, 2020
 
 **Group Members:** 
-Alfred Garcia
+*Alfred Garcia*
 Wilmer Perez
 Alleene Lacaba
 Xiaoxia Zhang
