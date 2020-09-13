@@ -5,6 +5,12 @@
 
 **Date:** September 8, 2020
 
+**Getting Started**
+- Install the dependencies
+`npm install`
+- Start the node server
+`node app.js`
+
 **Group Members:** 
 - Alfred Garcia
 - Wilmer Perez
