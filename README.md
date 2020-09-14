@@ -9,7 +9,10 @@
 - Install the dependencies
 `npm install`
 - Start the node server
-`node app.js`
+`npm run dev`
+
+**Creating a feathers service**
+Use [feather-cli](https://github.com/feathersjs/cli) to create a web service
 
 **Group Members:** 
 - Alfred Garcia
