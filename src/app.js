@@ -22,7 +22,7 @@ const sequelize = require('./sequelize');
 
 const app = express(feathers());
 
-require('dotenv').config()
+require('dotenv').config();
 const setupDiscord = require('./bots/discord');
 
 // Load app configuration
@@ -51,7 +51,7 @@ app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
 
-app.configure(setupDiscord)
+app.configure(setupDiscord);
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());

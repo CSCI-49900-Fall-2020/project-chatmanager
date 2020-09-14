@@ -31,6 +31,11 @@ class DiscordBot {
         if (command === 'gm') {
           message.channel.send(`send a group message: ${commandArgs}`);
         }
+
+        if (command === 'm') {
+          const usernames = await this.getMembers().map(m => m.username);
+          message.channel.send(`Here are all the members: ${usernames}`);
+        }
       }
     });
 
@@ -38,12 +43,16 @@ class DiscordBot {
     this.client = client;
   }
 
-  async sendMessageToAllChannels(msg) {
+  sendMessageToAllChannels(msg) {
     const sendAll = this.client.channels.cache
       .filter(ch => ch.type == 'text')
       .map(ch => ch.send(msg));
 
     return Promise.all(sendAll);
+  }
+
+  getMembers() {
+    return this.client.users.cache;
   }
 }
 
