@@ -43,5 +43,5 @@ Use [feather-cli](https://github.com/feathersjs/cli) to create a web service
 
 In order to test our library (npm package) we will be creating a website written on the MEAN stack. With the website we will show all the functionalities of the library such as messaging, file sharing and interactive forms. The website will act as the backend through which the chat manager(person) will impersonate a bot and interact with the messaging platforms such as slack. Additionally, we would like to extend bot impersonation functionality once the core features of the library are added. We would test these functionalities through the website as well.
 
-***[Group Authored](https://github.com/CSCI-49900-Fall-2020/project-chatmanager/wiki)***
+***[Group Authored Section](https://github.com/CSCI-49900-Fall-2020/project-chatmanager/wiki)***
 
