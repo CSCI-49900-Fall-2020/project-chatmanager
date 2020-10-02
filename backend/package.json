@@ -28,7 +28,8 @@
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon src/",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive --exit"
+    "mocha": "mocha test/ --recursive --exit",
+    "postinstall": "node -e \"var s='../../Project-chatmanagerlibrary',d='node_modules/Project-chatmanagerlibrary',fs=require('fs');fs.exists(d,function(e){e||fs.symlinkSync(s,d,'dir')});\""
   },
   "standard": {
     "env": [

@@ -1,4 +1,4 @@
-const DiscordBot = require('../../../Project-chatmanagerlibrary/discordBot');
+const DiscordBot = require('Project-chatmanagerlibrary/discordBot');
 
 module.exports = function(app) {
   const discordBot = new DiscordBot();
