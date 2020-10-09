@@ -23,7 +23,7 @@ module.exports = function(app) {
     },
   };
   const bot = new ChatBotManager(botOptions);
-  bot.setupCommandListener((command, commandArgs) => {
+  bot.setupCommandListener((command, commandArgs, source) => {
     if (command === 'gm') {
       const tmp = commandArgs.split(' ');
       const platform = tmp.shift();
@@ -31,7 +31,7 @@ module.exports = function(app) {
       const data = {
         platform,
         message,
-        source: 'discord',
+        source,
       };
       console.log(data);
       return app.service('api/v1/group-message').create(data);
