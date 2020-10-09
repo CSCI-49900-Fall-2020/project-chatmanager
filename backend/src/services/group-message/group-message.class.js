@@ -6,13 +6,17 @@ exports.GroupMessage = class GroupMessage {
   }
 
   async create (data, params) {
-    const platform = data.platform;
-    const message = data.message;
+    const {
+      platform,
+      message,
+      source,
+    } = data;
+
     const app = this.app;
 
     app.get('chatBotManager').sendMessageToAllChannels({
       platform,
-      message,
+      message: `${message} (message sent from ${source})`,
     });
 
     return data;
