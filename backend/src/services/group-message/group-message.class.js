@@ -16,7 +16,7 @@ exports.GroupMessage = class GroupMessage {
 
     app.get('chatBotManager').sendMessageToAllChannels({
       platform,
-      message: `${message} (message sent from ${source})`,
+      message: `${message} (message sent from ${source ? source : 'unknown source'})`,
     });
 
     return data;
