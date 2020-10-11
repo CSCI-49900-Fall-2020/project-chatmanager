@@ -18,9 +18,9 @@
 - Log in to Container Registry (`heroku login` is required)
 `heroku container:login`
 - Make sure you're in the root path of the repo, Build the image and push to Container Registry
-`heroku container:push chatmanager`
+`heroku container:push web`
 - Deploy 
-`heroku container:release chatmanager`
+`heroku container:release web`
 
 **Creating a feathers service**
 Use [feather-cli](https://github.com/feathersjs/cli) to create a web service

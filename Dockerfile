@@ -4,5 +4,5 @@ COPY backend/package*.json ./
 COPY Project-chatmanagerlibrary ../Project-chatmanagerlibrary
 RUN npm install
 COPY backend/. ./
-EXPOSE 3030 3000 3001
+EXPOSE 3030
 CMD [ "npm", "start" ]
