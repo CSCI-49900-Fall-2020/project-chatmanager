@@ -31,6 +31,7 @@ app.configure(configuration());
 app.use(helmet());
 app.use(cors());
 app.use(compress());
+app.configure(setupChatBotManager);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
@@ -50,8 +51,6 @@ app.configure(authentication);
 app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
-
-app.configure(setupChatBotManager);
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());

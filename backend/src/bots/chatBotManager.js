@@ -5,6 +5,7 @@ module.exports = function(app) {
     signingSecret,
     eventPort,
     interactiveMessagePort,
+    slackEventAPIPath,
   } = app.get('slackBotConfig');
 
   const {
@@ -17,11 +18,13 @@ module.exports = function(app) {
       signingSecret,
       eventPort,
       interactiveMessagePort,
+      slackEventAPIPath,
     },
     discordBotConfig: {
       token,
     },
   };
+
   const bot = new ChatBotManager(botOptions);
   bot.setupCommandListener((command, commandArgs, source) => {
     if (command === 'gm') {
@@ -33,12 +36,12 @@ module.exports = function(app) {
         message,
         source,
       };
-      console.log(data);
+
       return app.service('api/v1/group-message').create(data);
     }
   });
 
   app.set('chatBotManager', bot);
-  bot.start();
+  bot.start(app);
   return bot;
 };
