@@ -1,0 +1,10 @@
+{
+  "discordBotConfig": {
+    "token": "DISCORD_BOT_TOKEN"
+  },
+  "slackBotConfig": {
+    "oauthToken": "SLACK_BOT_OAUTH_TOKEN",
+    "signingSecret": "SLACK_SIGNING_SECRET"
+  },
+  "port": "PORT"
+}

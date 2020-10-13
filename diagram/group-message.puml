@@ -1,0 +1,15 @@
+@startuml
+slackUser -> slackChannel: group message to the discord channel
+slackChannel -> slackBot: listener
+slackBot -> nodeService: POST /group-message {discord, message}
+nodeService -> discordBot: sendGroupMessage(msg)
+
+discordBot -> discordChannel: sendGroupMessage()
+discordChannel -> discordChannel: discord user reply
+
+discordChannel -> discordBot: listener
+discordBot -> nodeService: POST /group-message {slack, message}
+
+nodeService -> slackBot: sendGroupMessage(msg)
+slackBot-> slackChannel: message
+@enduml

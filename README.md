@@ -6,10 +6,21 @@
 **Date:** September 8, 2020
 
 **Getting Started**
+- Initialize submodule for chatManagerLibrary
+`git submodule init`
+- Go to backend folder `cd backend/`
 - Install the dependencies
 `npm install`
-- Start the node server
+- Start the backend node server
 `npm run dev`
+
+**Deploy to Heroku**
+- Log in to Container Registry (`heroku login` is required)
+`heroku container:login`
+- Make sure you're in the root path of the repo, Build the image and push to Container Registry
+`heroku container:push web`
+- Deploy 
+`heroku container:release web`
 
 **Creating a feathers service**
 Use [feather-cli](https://github.com/feathersjs/cli) to create a web service
