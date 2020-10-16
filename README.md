@@ -9,7 +9,7 @@
 - Initialize submodule for chatManagerLibrary
 `git submodule init`
 `git submodule update`
-- Go to library folder `cd project-chatmanager/`
+- Go to library folder `cd Project-chatmanagerlibrary/`
 - Install the dependencies for the library
 `npm install`
 - Go to backend folder `cd backend/`
