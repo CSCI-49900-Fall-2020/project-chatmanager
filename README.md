@@ -6,6 +6,20 @@
 **Date:** September 8, 2020
 
 **Getting Started**
+- Create if not found the .env file which is under `/project-chatmanager/backend`
+- Copy your discord bot token, slack bot token and stack signing secret on your .env file, after doing that, you .env file should look like this
+    >DISCORD_BOT_TOKEN=discord bot token
+    >SLACK_BOT_OAUTH_TOKEN=slack bot token
+    >SLACK_SIGNING_SECRET= slack signing secret
+    >PORT=3030
+
+    Tips: how to find these tokens:
+    - discord
+        click **Bot**, **Click to Reveal Token**
+        <img src="https://user-images.githubusercontent.com/47549128/97236330-3e829300-17bb-11eb-96dd-32f8fa17834d.png" width="400">
+    - slack
+        - slack token: click **OAuth & Permissions**
+        - slack signing secret: click **Basic Information**, you will find your **Signing Secret** under **App Credentials**
 - Initialize submodule for chatManagerLibrary
 `git submodule init`
 `git submodule update`
