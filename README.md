@@ -16,7 +16,6 @@
     Tips: how to find these tokens:
     - discord
         click **Bot**, **Click to Reveal Token**
-         <img src="https://user-images.githubusercontent.com/47549128/97236330-3e829300-17bb-11eb-96dd-32f8fa17834d.png" width="400">
     - slack
         - slack token: click **OAuth & Permissions**
         - slack signing secret: click **Basic Information**, you will find your **Signing Secret** under **App Credentials**
