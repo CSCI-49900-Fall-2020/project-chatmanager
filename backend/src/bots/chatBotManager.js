@@ -6,6 +6,7 @@ module.exports = function(app) {
     eventPort,
     interactiveMessagePort,
     slackEventAPIPath,
+    slackSlashCommandPath,
   } = app.get('slackBotConfig');
 
   const {
@@ -19,6 +20,7 @@ module.exports = function(app) {
       eventPort,
       interactiveMessagePort,
       slackEventAPIPath,
+      slackSlashCommandPath,
     },
     discordBotConfig: {
       token,
@@ -26,18 +28,43 @@ module.exports = function(app) {
   };
 
   const bot = new ChatBotManager(botOptions);
-  bot.setupCommandListener((command, commandArgs, source) => {
+  bot.setupCommandListener(async (command, commandArgs, source) => {
     if (command === 'gm') {
       const tmp = commandArgs.split(' ');
       const platform = tmp.shift();
+      const channelId = tmp.shift();
       const message = tmp.join(' ');
       const data = {
         platform,
+        channelId,
         message,
         source,
       };
 
-      return app.service('api/v1/group-message').create(data);
+      await app.service('api/v1/group-message').create(data);
+      return {
+        result: 'message sent',
+      };
+    } else if (command === 'ls') {
+      const tmp = commandArgs.split(' ');
+      const lsType = tmp.shift();
+      if (lsType === 'channel') {
+        const platform = tmp.shift();
+        const channels = await app.service('api/v1/list-channels').find({
+          query: {
+            platform,
+          }});
+        return channels;
+      } if (lsType === 'member') {
+        const platform = tmp.shift();
+        const members = await app.service('api/v1/list-members').find({
+          query: {
+            platform,
+          }
+        });
+
+        return members;
+      }
     }
   });
 

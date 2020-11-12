@@ -1,3 +1,4 @@
+const { GeneralError } = require('@feathersjs/errors');
 /* eslint-disable no-unused-vars */
 exports.GroupMessage = class GroupMessage {
   constructor (options, app) {
@@ -8,17 +9,27 @@ exports.GroupMessage = class GroupMessage {
   async create (data, params) {
     const {
       platform,
+      channelId,
       message,
       source,
     } = data;
 
     const app = this.app;
-
-    app.get('chatBotManager').sendMessageToAllChannels({
-      platform,
-      message: `${message} (message sent from ${source ? source : 'unknown source'})`,
+    const allChannels = await app.service('api/v1/list-channels').find({
+      query: {
+        platform
+      }
     });
+    const channel = allChannels.find(ch => ch.id === channelId);
 
-    return data;
+    if (channel) {
+      return app.get('chatBotManager').sendMessageChannel({
+        platform,
+        channelId: channel.id,
+        message,
+      });
+    }
+
+    return new GeneralError(`Channel: ${channelId} not found on ${platform} !`);
   }
 };

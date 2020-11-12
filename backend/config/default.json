@@ -8,7 +8,8 @@
   "slackBotConfig": {
     "eventPort": 3000,
     "interactiveMessagePort": 3001,
-    "slackEventAPIPath": "/slack-event"
+    "slackEventAPIPath": "/slack-event",
+    "slackSlashCommandPath": "/slack-command"
   },
   "authentication": {
     "entity": "user",
