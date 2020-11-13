@@ -1,1 +1,9 @@
+title: Project Chat Manager
+
+description: This is a website for documentation on Project Chat Manager
+
 theme: jekyll-theme-time-machine
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
