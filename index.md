@@ -23,7 +23,8 @@ These include:
 
 
 ### Documentation Pages
-#### [link to blog post](/_posts/2020-11-06-welcome-to-jekyll.markdown)
+#### [bots](/_posts/2020-11-17-bots.markdown)
+#### [slash commands](/_posts/2020-11-18-slash-command.markdown)
 
 ### Support or Contact
 
