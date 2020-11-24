@@ -4,6 +4,10 @@ description: This is a website for documentation on Project Chat Manager
 
 theme: jekyll-theme-time-machine
 
+#url: "https://csci-49900-fall-2020.github.io/project-chatmanager/"
+
+#baseurl: "/project-chatmanager"
+
 exclude:
   - Gemfile
   - Gemfile.lock
