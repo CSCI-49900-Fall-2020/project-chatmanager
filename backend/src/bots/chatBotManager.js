@@ -40,7 +40,6 @@ module.exports = function(app) {
         message,
         source,
       };
-
       await app.service('api/v1/group-message').create(data);
       return {
         result: 'message sent',
@@ -62,9 +61,23 @@ module.exports = function(app) {
             platform,
           }
         });
-
         return members;
       }
+    } else if (command === 'pm') {
+      const tmp = commandArgs.split(' ');
+      const platform = tmp.shift();
+      const userId = tmp.shift();
+      const message = tmp.join(' ');
+      const data = {
+        platform,
+        userId,
+        message,
+        source,
+      };
+      await app.service('api/v1/direct-message').create(data);
+      return {
+        result: 'message sent',
+      };
     }
   });
 
