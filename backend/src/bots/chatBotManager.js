@@ -63,7 +63,7 @@ module.exports = function(app) {
         });
         return members;
       }
-    } else if (command === 'dm') {
+    } else if (command === 'pm') {
       const tmp = commandArgs.split(' ');
       const platform = tmp.shift();
       const userId = tmp.shift();
