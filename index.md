@@ -23,8 +23,9 @@ These include:
 
 
 ### Documentation Pages
-#### [bots](/_posts/2020-11-17-bots.markdown)
-#### [slash commands](/_posts/2020-11-18-slash-command.markdown)
+{% for post in site.posts %}
+####   [{{ post.title }}]({{post.url }})
+{% endfor %}
 
 ### Support or Contact
 

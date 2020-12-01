@@ -6,8 +6,6 @@ categories: jekyll update
 
 ---
 
-# Slash Commands (updating)
-
 1. /ls (list: list all of the channels/members of slack/discord) 
     
     `/ls ${command_option} ${platform}`
