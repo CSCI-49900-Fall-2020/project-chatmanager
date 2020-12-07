@@ -6,5 +6,6 @@
     "oauthToken": "SLACK_BOT_OAUTH_TOKEN",
     "signingSecret": "SLACK_SIGNING_SECRET"
   },
+  "apikey": "BACKEND_API_KEY",
   "port": "PORT"
 }

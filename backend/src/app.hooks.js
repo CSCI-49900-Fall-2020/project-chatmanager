@@ -1,8 +1,9 @@
+const { authenticate } = require('@feathersjs/authentication');
 // Application hooks that run for every service
 
 module.exports = {
   before: {
-    all: [],
+    all: [authenticate('api-key')],
     find: [],
     get: [],
     create: [],
