@@ -17,7 +17,8 @@
     "secret": "yoP+kcjmOdfdjsYFsDGVISr9pHE=",
     "authStrategies": [
       "jwt",
-      "local"
+      "local",
+      "api-key"
     ],
     "jwtOptions": {
       "header": {
@@ -31,6 +32,10 @@
     "local": {
       "usernameField": "email",
       "passwordField": "password"
+    },
+    "api-key": {
+      "headerField": "api-key",
+      "configField": "apikey"
     }
   },
   "postgres": "postgres://postgres:@localhost:5432/chatmanager"
