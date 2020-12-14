@@ -25,63 +25,93 @@ module.exports = function(app) {
     discordBotConfig: {
       token,
     },
+    commandConfig: {
+      directMessage: 'pm',
+      groupMessage: 'gm',
+      sendFile: 'file',
+      help: 'help',
+      list: 'ls',
+      talkTo: 'talkto',
+      stop: 'stop'
+    },
   };
 
   const bot = new ChatBotManager(botOptions);
-  bot.setupCommandListener(async (command, commandArgs, source) => {
-    if (command === 'gm') {
-      const tmp = commandArgs.split(' ');
-      const platform = tmp.shift();
-      const channelId = tmp.shift();
-      const message = tmp.join(' ');
-      const data = {
-        platform,
-        channelId,
-        message,
-        source,
-      };
-      await app.service('api/v1/group-message').create(data);
-      return {
-        result: 'message sent',
-      };
-    } else if (command === 'ls') {
-      const tmp = commandArgs.split(' ');
-      const lsType = tmp.shift();
-      if (lsType === 'channel') {
-        const platform = tmp.shift();
-        const channels = await app.service('api/v1/list-channels').find({
-          query: {
-            platform,
-          }});
-        return channels;
-      } if (lsType === 'member') {
-        const platform = tmp.shift();
-        const members = await app.service('api/v1/list-members').find({
-          query: {
-            platform,
-          }
-        });
-        return members;
+  const { commandConfig } = botOptions;
+
+  bot.setMessageListener((message, sender) => {
+    const redis = app.get('redis');
+    const {
+      userId: senderId,
+      userName: senderName,
+      platform: senderPlatform,
+    } = sender;
+    const hashKey = `${senderPlatform}_${senderName}_${senderId}`;
+    // the whole message is a value stored in redis.
+    redis.hgetall(hashKey, (err, cacheCommand) => {
+      if (err) throw err;
+
+      if (cacheCommand) {
+        const data = {
+          platform: cacheCommand.platform,
+          userId: cacheCommand.userId,
+          message: message
+        };
+        console.log(data);
+        bot.sendDirectMessage(data);
       }
-    } else if (command === 'pm') {
-      const tmp = commandArgs.split(' ');
-      const platform = tmp.shift();
-      const userId = tmp.shift();
-      const message = tmp.join(' ');
-      const data = {
-        platform,
-        userId,
-        message,
-        source,
-      };
-      await app.service('api/v1/direct-message').create(data);
-      return {
-        result: 'message sent',
-      };
-    }
+    });
   });
 
-  app.set('chatBotManager', bot);
+  bot.setupCommandListener(commandConfig.stop, async (command, commandArgs, sender) => {
+    const {
+      userId: senderId,
+      userName: senderName,
+      platform: senderPlatform,
+    } = sender;
+    const hashKey = `${senderPlatform}_${senderName}_${senderId}`;
+    const redis = app.get('redis');
+    redis.del(hashKey);
+  });
+
+  bot.setupCommandListener(commandConfig.talkTo, async (command, commandArgs, sender) => {
+    const redis = app.get('redis');
+    const tmp = commandArgs.split(' ');
+    const platform = tmp.shift();
+    const userId = tmp.shift();
+
+    const {
+      userId: senderId,
+      userName: senderName,
+      platform: senderPlatform,
+    } = sender;
+
+    try {
+      const allMembers = await bot.getMembers();
+      const receiver = allMembers.find(m => m.id === userId);
+      const cacheCommand = {
+        command: 'directMessage',
+        platform: platform,
+        userId: userId,
+        userName: receiver.name,
+        senderId: senderId,
+        senderName: senderName,
+        senderPlatform: senderPlatform,
+      };
+
+      const hashKey = `${senderPlatform}_${senderName}_${senderId}`;
+      redis.hmset(hashKey, cacheCommand, (err, reply) => {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+      });
+      return `now you're talking to ${receiver.name} on ${platform}`;
+    } catch(ex) {
+      return `cannot find the user with userId ${userId}`;
+    }
+  });
   bot.start(app);
+  app.set('chatBotManager', bot);
   return bot;
 };
