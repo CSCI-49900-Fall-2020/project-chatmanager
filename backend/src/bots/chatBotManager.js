@@ -55,7 +55,7 @@ module.exports = function(app) {
         const data = {
           platform: cacheCommand.platform,
           userId: cacheCommand.userId,
-          message: message
+          message: `${senderName}(${senderPlatform}): ${message}`
         };
         console.log(data);
         bot.sendDirectMessage(data);
@@ -72,6 +72,7 @@ module.exports = function(app) {
     const hashKey = `${senderPlatform}_${senderName}_${senderId}`;
     const redis = app.get('redis');
     redis.del(hashKey);
+    return 'you stopped the conversation';
   });
 
   bot.setupCommandListener(commandConfig.talkTo, async (command, commandArgs, sender) => {

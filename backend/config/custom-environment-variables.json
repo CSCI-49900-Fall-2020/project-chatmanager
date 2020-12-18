@@ -7,5 +7,6 @@
     "signingSecret": "SLACK_SIGNING_SECRET"
   },
   "apikey": "BACKEND_API_KEY",
-  "port": "PORT"
+  "port": "PORT",
+  "redis": "REDIS_URL"
 }

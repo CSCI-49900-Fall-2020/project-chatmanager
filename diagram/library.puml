@@ -1,0 +1,136 @@
+@startuml
+note left of ChatBotManager
+The main interface class for developer to
+interact with all the thrid-party chat app bots
+end note
+
+class ChatBotManager {
+  +constructor(option)
+  +start(option)
+  +setupCommandListener(command, eventListener)
+  +setMessageListener(messageListener)
+  +sendMessageChannel(data)
+  +getChannels()
+  +getMembers()
+  +sendDirectMessage(data)
+  +sendFileToChannel(data)
+  +sendFileToUser(data)
+  +stop()
+}
+
+note right of ChatBotManager::"start(option)"
+Initialize the bot manager and start command listener middleware service
+end note
+
+note right of ChatBotManager::"setupCommandListener(command, eventListener)"
+Setup the command listener for a specific command
+end note
+
+note right of ChatBotManager::"setMessageListener(messageListener)"
+Setup the message listener
+end note
+
+note right of ChatBotManager::"sendMessageChannel(data)"
+Send message to a specific channel
+end note
+
+note right of ChatBotManager::"sendMessageChannel(data)"
+Get all channels info include channel ids,
+channel names, and platform, return all the channels from multiple platforms
+end note
+
+note right of ChatBotManager::"getChannels()"
+Get all channels info include channel ids,
+channel names, and platform, return all
+the channels from multiple platforms
+end note
+
+note right of ChatBotManager::"getMembers()"
+Get all members info include user ids,
+user names, and platform, return all
+the members from multiple platforms
+end note
+
+note right of ChatBotManager::"sendDirectMessage(data)"
+Send direct message to private member at a specific platform
+end note
+
+note right of ChatBotManager::"stop()"
+Stop the bot listener
+end note
+
+note top of DiscordBot : the discord bot api wrapper
+class DiscordBot {
+  +constructor(token)
+  +setCommandListener(commandListener)
+  +setMessageListener(messageListener)
+  +start()
+  +sendMessageToAllChannels(msg)
+  +sendMessageChannel(channelId, message)
+  -fetchChannelsInternal()
+  +getChannels()
+  +getMembers()
+  +sendDirectMessage(userId, message)
+  +stop()
+  +sendFileToChannel(channelId, url)
+  +sendFileToUser(userId, url)
+  +sendFile(filePath, channelId, callback)
+  +sendGoogleForm(googleFormUrl, channelId, callback)
+  +listenForGoogleFormSubmissions(port, callback)
+  +listenForFormsWithExpress(callback)
+  +formsExpressMiddleware(req,res,next)
+  +addCustomCommand(command, callback)
+}
+note top of SlackBot : the slack bot api wrapper
+class SlackBot {
+  +constructor(slackBotToken, slackSigningSecret)
+  +start(slackEventsPort, slackInteractiveMessagesPort)
+  +eventsExpressMiddleware(req,res,next)
+  +interactiveMessagesExpressMiddleware(req,res,next)
+  +getSlashCommandListener()
+  +setCommandListener(commandListener)
+  +setMessageListener(messageListener)
+  +listenForFormSubmissions(modalCallbackId, callback)
+  +sendForm(messageJson, modalJson, channelId, actionId, callback)
+  +sendFile(channelId, filePath, callback)
+  +sendMessageToChannel(channelId, message)
+  +sendMessageToAllChannels(message)
+  +sendMessageChannel(channelId, message)
+  +getChannels()
+  +getMembers()
+  +sendDirectMessage(userId, message)
+  +sendFileToUser(userId, url)
+  +sendFileToChannel(userId, url)
+  +stop(slackEventsPort, slackInteractiveMessagesPort)
+}
+
+note top of TelegramBot : the telegram bot api wrapper
+class TelegramBot {
+  +constructor(teleToken)
+  +setCommandListener(commandListener)
+  +getChannels()
+  +sendMessageToAllChannels(message)
+  +sendFile(filePath)
+  +start()
+  +quit()
+}
+
+object ChatBotManager.test
+object DiscordBot.test
+object SlackBot.test
+object TelegramBot.test
+
+object Configuration {
+  object BotTokens
+  object CommandConfiguration
+  object MiddlewarePathConfiguration
+}
+
+
+ChatBotManager <|-up- DiscordBot
+ChatBotManager <|-up- SlackBot
+ChatBotManager <|-up- TelegramBot
+
+ChatBotManager o-down- Configuration
+
+@enduml
