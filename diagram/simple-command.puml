@@ -1,0 +1,11 @@
+@startuml
+actor slack_user
+entity slack_bot
+participant chatbotmanager_service
+entity discord_bot
+actor discord_user
+chatbotmanager_service -> chatbotmanager_service: subscribe to all incoming commands from all bots
+slack_user -> slack_bot: send command with arguments
+slack_bot -> chatbotmanager_service: forward command with arguments
+chatbotmanager_service -> discord_user: send message through the **discord api**
+@enduml

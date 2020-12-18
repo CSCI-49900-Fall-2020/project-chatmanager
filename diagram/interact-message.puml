@@ -1,0 +1,35 @@
+@startuml
+actor slack_user
+entity slack_bot
+participant chatbotmanager_service
+database redis
+entity discord_bot
+actor discord_user
+
+chatbotmanager_service -> chatbotmanager_service: subscribe to all bot commands
+chatbotmanager_service -> chatbotmanager_service: subscribe to all incoming messages
+slack_user -> slack_bot: send **/talkto** command open a conversation with **discrod user**
+slack_bot -> chatbotmanager_service: request to talk to a **discord user**
+chatbotmanager_service -> redis: create the session **slack user** talk to **discord user** in **redis**
+chatbotmanager_service -> slack_user: send **conversation is created** through **slack api**
+chatbotmanager_service -> discord_user: send **conversation is created** the **discordjs** api
+alt discord_user also would like to talk to slack_user
+discord_user -> discord_bot: response the message
+discord_bot -> chatbotmanager_service: discord_user would like to talk to slack_user
+chatbotmanager_service -> redis: create the conversation **discord user** talk to **slack user** in **redis**
+end
+slack_user -> slack_bot: send "hi" message
+slack_bot -> chatbotmanager_service: request to send "hi" message to **discord_user**
+chatbotmanager_service -> redis: look up who is **slack_user** talking to
+alt session found
+redis -> chatbotmanager_service: redis lookup result
+chatbotmanager_service -> discord_user: send "hi" to discord_user through **discord api**
+end
+discord_user -> discord_bot: send "hello !" message
+discord_bot -> chatbotmanager_service: request to send "hello !" message to **slack_user**
+chatbotmanager_service -> redis: look up who is **discord_user** talking to
+alt session found
+redis -> chatbotmanager_service: redis lookup result
+chatbotmanager_service -> slack_user: send "hello !" to **slack_user** through **slack api**
+end
+@enduml

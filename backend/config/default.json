@@ -38,9 +38,5 @@
       "configField": "apikey"
     }
   },
-  "redis": {
-    "host": "localhost",
-    "port": 6379
-  },
   "postgres": "postgres://postgres:@localhost:5432/chatmanager"
 }
