@@ -20,6 +20,7 @@ const channels = require('./channels');
 const authentication = require('./authentication');
 
 const sequelize = require('./sequelize');
+const redisHelper = require('./redisHelper');
 
 const app = express(feathers());
 
@@ -43,6 +44,7 @@ app.configure(express.rest());
 app.configure(socketio());
 
 app.configure(sequelize);
+app.configure(redisHelper);
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
